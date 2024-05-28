@@ -1,0 +1,19 @@
+# Spring Boot CRUD properties.yml
+
+# Server configuration
+server:
+  port: 8080
+
+# Database configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/erp
+    username: postgres
+    password: sys_admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
