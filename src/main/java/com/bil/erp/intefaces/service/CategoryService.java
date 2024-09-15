@@ -1,5 +1,6 @@
 package com.bil.erp.intefaces.service;
 
+import com.bil.erp.dto.category.CategoryFilterCriteria;
 import com.bil.erp.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,6 @@ public interface CategoryService {
     void delete(Long categoryId);
 
     Category getById(Long categoryId);
+
+    Page<Category> searchByFilterCriteria(CategoryFilterCriteria filter, Pageable pageable);
 }

@@ -5,8 +5,6 @@ import com.bil.erp.dto.supplier.SupplierResponse;
 import com.bil.erp.intefaces.mapper.SupplierMapper;
 import com.bil.erp.intefaces.service.SupplierService;
 import com.bil.erp.model.Supplier;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api/supplier")
 @RequiredArgsConstructor
-@Tag(name = "supplier")
 public class SupplierController {
 
     private final SupplierService supplierService;
@@ -25,7 +22,6 @@ public class SupplierController {
 
 
     @GetMapping
-    @Operation(operationId = "supplierGetAll")
     public ResponseEntity<Page<SupplierResponse>> getAll(Pageable pageable) {
         Page<Supplier> suppliers = supplierService.getAll(pageable);
         Page<SupplierResponse> responses = suppliers.map(supplierMapper::toResponse);
@@ -33,21 +29,18 @@ public class SupplierController {
     }
 
     @GetMapping("/{supplierId}")
-    @Operation(operationId = "purchaseGetById")
     public ResponseEntity<SupplierResponse> getById(@PathVariable final Long supplierId) {
         final Supplier supplier = supplierService.getById(supplierId);
         return ResponseEntity.ok(supplierMapper.toResponse(supplier));
     }
 
     @PostMapping
-    @Operation(operationId = "purchaseCreate")
     public ResponseEntity<SupplierResponse> create(@RequestBody final SupplierRequest request) {
         var supp = supplierService.create(supplierMapper.toEntity(request));
         return ResponseEntity.ok(supplierMapper.toResponse(supp));
     }
 
     @PutMapping("/{supplierId}")
-    @Operation(operationId = "purchaseUpdate")
     public ResponseEntity<SupplierResponse> update(@PathVariable final Long supplierId, @RequestBody SupplierRequest request) {
         var supp = supplierMapper.toEntity(request);
         var supplier = supplierService.update(supplierId, supp);
@@ -55,7 +48,6 @@ public class SupplierController {
     }
 
     @DeleteMapping("/{supplierId}")
-    @Operation(operationId = "purchaseDelete")
     private void delete(@PathVariable final Long supplierId) {
         supplierService.delete(supplierId);
     }

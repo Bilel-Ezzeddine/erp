@@ -1,5 +1,6 @@
 package com.bil.erp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
     @JsonManagedReference
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<OrderProduct> orderProducts;
     @JsonManagedReference
     @OneToMany(mappedBy = "product")

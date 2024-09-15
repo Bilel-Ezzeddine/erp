@@ -12,7 +12,7 @@ public interface ProductMapper {
 
     @Mapping(target = "purchases", ignore = true)
     @Mapping(target = "orderProducts", ignore = true)
-    @Mapping(target = "category", ignore = true)
+    @Mapping(target = "category.id", source = "categoryId")
     Product toEntity(ProductRequest productRequest);
 
     ProductResponse toResponse(Product product);

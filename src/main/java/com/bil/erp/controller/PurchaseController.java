@@ -7,8 +7,6 @@ import com.bil.erp.intefaces.mapper.PurchaseMapper;
 import com.bil.erp.intefaces.mapper.SupplierMapper;
 import com.bil.erp.intefaces.service.PurchaseService;
 import com.bil.erp.model.Purchase;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/api/supplier/{supplierId}/purchase")
 @RequiredArgsConstructor
-@Tag(name = "purchase")
 public class PurchaseController {
 
     private final PurchaseService purchaseService;
@@ -27,7 +24,6 @@ public class PurchaseController {
     private final SupplierMapper supplierMapper;
 
     @GetMapping
-    @Operation(operationId = "purchaseGetAll")
     public ResponseEntity<Page<PurchaseResponse>> getAll(Pageable pageable) {
         Page<Purchase> purchases = purchaseService.getAll(pageable);
         Page<PurchaseResponse> purchaseResponses = purchases.map(purchaseMapper::toResponse);
@@ -35,14 +31,12 @@ public class PurchaseController {
     }
 
     @PostMapping
-    @Operation(operationId = "purchaseCreate")
     public ResponseEntity<SupplierResponse> create(@RequestBody final PurchaseRequest request) {
         Purchase purchase = purchaseService.create(request);
         return ResponseEntity.ok(supplierMapper.toResponse(purchase.getSupplier()));
     }
 
     @PutMapping("/{purchaseId}")
-    @Operation(operationId = "purchaseUpdate")
     public ResponseEntity<SupplierResponse> update(@RequestBody final PurchaseRequest request,
                                                 @PathVariable Long purchaseId) {
         Purchase purchase = purchaseService.update(request, purchaseId);
@@ -51,7 +45,6 @@ public class PurchaseController {
     }
 
     @DeleteMapping("/purchaseId")
-    @Operation(operationId = "purchaseDelete")
     public void delete(@PathVariable Long purchaseId) {
         purchaseService.delete(purchaseId);
     }

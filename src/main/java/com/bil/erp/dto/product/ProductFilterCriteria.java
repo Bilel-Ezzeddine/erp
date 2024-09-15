@@ -1,6 +1,5 @@
 package com.bil.erp.dto.product;
 
-import com.bil.erp.dto.category.CategoryResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductResponse {
-    private Long id;
+public class ProductFilterCriteria {
     private String name;
-    private Double price;
-    private int quantity;
+    private String price;
+    private String quantity;
     private String barcode;
-    private CategoryResponse category;
+    private String categoryName;
 }
